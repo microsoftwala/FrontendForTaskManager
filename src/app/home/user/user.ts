@@ -43,7 +43,7 @@ export class User {
 
   private applyFilter(searchQuery: string = '') {
     const query = searchQuery;
-    // reset lists 
+    // reset lists
     this.todo = [];
     this.progress = [];
     this.completed = [];
@@ -216,5 +216,15 @@ export class User {
   viewTaskById(id: string) {
     console.log('Inside view:', id);
     this.router.navigate(['/view', id]);
+  }
+
+  showAllTasksPopup = false;
+
+  openAllTasksPopup() {
+    this.showAllTasksPopup = true;
+  }
+
+  closeAllTasksPopup() {
+    this.showAllTasksPopup = false;
   }
 }

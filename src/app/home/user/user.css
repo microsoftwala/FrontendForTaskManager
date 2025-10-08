@@ -382,6 +382,10 @@ body {
   flex: 0 0 12%;
 }
 
+.col-right button{
+  margin-bottom: 10px;
+}
+
 .col-middle {
   flex: 0 0 70%; /* fixed 70% */
   text-align: center;
@@ -399,9 +403,12 @@ body {
     flex: 0 0 100%;
   }
 
+  .col-right button{
+    margin-right: 10px;
+  }
+
   .col-middle {
-    flex: 0 0 100%;
-    text-align: center;
+    display: none;
   }
 }
 

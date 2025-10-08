@@ -26,6 +26,9 @@
         <button class="btn btn-primary custom-btn1" (click)="showForm = true">
           <i class="uil uil-plus"></i> Create Task
         </button>
+        <button class="btn btn-primary custom-btn1" (click)="openAllTasksPopup()">
+          <i class="uil uil-list-ul"></i> Show all Task
+        </button>
       </div>
     </div>
 
@@ -286,6 +289,76 @@
       </div>
     </ng-template>
   </section>
+</div>
+
+<!-- Show All Tasks Modal -->
+<div
+  class="modal fade"
+  tabindex="-1"
+  [ngClass]="{ 'show d-block': showAllTasksPopup }"
+  [ngStyle]="{ 'background-color': showAllTasksPopup ? 'rgba(0,0,0,0.5)' : 'transparent' }"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">All Tasks</h5>
+        <button type="button" class="btn-close" (click)="closeAllTasksPopup()"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Details</th>
+              <th>Project</th>
+              <th>Priority</th>
+              <th>Due Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of allTasks; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ task.details }}</td>
+              <td>{{ task.project }}</td>
+              <td
+                [style.color]="
+                  task.priority === 'High' ? 'red' : task.priority === 'Medium' ? 'Orange' : 'green'
+                "
+                style="font-weight: 500"
+              >
+                {{ task.priority }}
+              </td>
+              <td>{{ task.dueDate | date }}</td>
+              <td
+                [style.color]="
+                  task.status === 'progress'
+                    ? 'green'
+                    : task.status === 'completed'
+                    ? 'green'
+                    : task.status === 'todo'
+                    ? 'blue'
+                    : 'red'
+                "
+                style="font-weight: 500"
+              >
+                {{ task.status }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button
+          class="btn btn-secondary custom-btn1"
+          style="background-color: rgb(219, 44, 44)"
+          (click)="closeAllTasksPopup()"
+        >
+          <i class="uil uil-times"></i>Close
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- F R U R' U' F' -->
