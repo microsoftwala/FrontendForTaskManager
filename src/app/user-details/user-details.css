@@ -2,6 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Libre+Baskerville);
 
 .task-container {
+  min-height: 90vh;
   padding: 20px;
   font-family: 'Libre Baskerville';
   animation: fadeIn 0.8s ease-in;

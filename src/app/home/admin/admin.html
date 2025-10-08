@@ -29,19 +29,19 @@
   </div>
 
   <!-- Users Table -->
-  <div class="user-management card">
-    <table>
+ <div class="user-management card">
+  <div class="table-responsive">
+    <table class="table">
       <thead>
         <tr>
           <th>#</th>
           <th>Name</th>
           <th>Email</th>
           <th>Role</th>
-          <th style="padding-left: 150px">Actions</th>
+          <th style="min-width: 150px; padding-left:120px;">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <!-- Loop through users -->
         <tr *ngFor="let user of paginatedUsers; let i = index">
           <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
           <td style="font-weight: bold">
@@ -52,7 +52,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.role }}</td>
           <td>
-            <button class="custom-btn btn edit mx-4" (click)="editUser(user.id)">
+            <button class="custom-btn btn edit mx-2" (click)="editUser(user.id)">
               <i class="uil uil-edit"></i> Edit
             </button>
             <button class="custom-btn btn delete" (click)="deleteUser(user.id)">
@@ -63,6 +63,7 @@
       </tbody>
     </table>
   </div>
+</div>
 
   <!-- Edit User Modal -->
   <div class="modal" *ngIf="selectedUser">
