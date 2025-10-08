@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TaskService } from '../../taskService/task-service';
 import { AuthService } from '../../authService/auth-service';
+import { ActivityService } from '../../activityService/activity-service';
 
 interface Task {
   id: string;
@@ -25,7 +26,8 @@ export class User {
   constructor(
     private router: Router,
     private taskService: TaskService,
-    private authService: AuthService
+    private authService: AuthService,
+    private activityService: ActivityService
   ) {}
 
   todo: Task[] = [];
@@ -178,12 +180,27 @@ export class User {
     if (target === 'completed') this.completed.push(this.draggedTask);
     if (target === 'delete') this.deleted.push(this.draggedTask);
 
+    const taskId = this.draggedTask.id;
+    const taskDetails = this.draggedTask.details;
+
     // Change to backend
     this.taskService.editTask(this.draggedTask.id, this.draggedTask).subscribe({
       next: (updated) => {
-        console.log('Task updated in DB:', updated);
+        console.log('Task updated in DB:', updated, taskId, taskDetails);
         //reload tasks to stay in sync
         this.loadTasks();
+        // ✅ Log activity
+        this.activityService
+          .logActivity({
+            userId: this.authService.getId() || sessionStorage.getItem('id')!,
+            action: 'MOVE_TASK',
+            entityId: taskId,
+            details: `Task "${taskDetails}" moved to ${target}`,
+          })
+          .subscribe({
+            next: (log) => console.log('Activity logged:', log),
+            error: (err) => console.error('Error logging activity:', err),
+          });
       },
       error: (err) => {
         console.error('Error updating task:', err);

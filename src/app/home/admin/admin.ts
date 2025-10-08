@@ -6,11 +6,20 @@ import { AuthService } from '../../authService/auth-service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TaskService } from '../../taskService/task-service';
 import { RouterModule } from '@angular/router';
+import { ActivityService } from '../../activityService/activity-service';
 
 export interface User {
   name: string;
   email: string;
   role: string;
+}
+export interface Activity {
+  id?: string | number;
+  userId: string;
+  action:string,
+  entityId: string; // task id
+  details: string; // description
+  timestamp?: string;
 }
 
 @Component({
@@ -27,19 +36,22 @@ export class Admin {
   pageSize: number = 3;
   totalNoOfTasks: number = 0;
   paginatedUsers: any[] = [];
+  recentActivities: Activity[] = [];
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
     private taskService: TaskService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private activityService: ActivityService
   ) {}
 
   ngOnInit(): void {
     this.loadUsers();
     this.countTask();
+    this.loadRecentActivities();
   }
-  
+
   loadUsers() {
     this.userService.getAllUsers().subscribe({
       next: (data) => {
@@ -48,6 +60,13 @@ export class Admin {
         this.goToPage(1);
       },
       error: (err) => console.error('Error fetching users:', err),
+    });
+  }
+
+  loadRecentActivities() {
+    this.activityService.getRecentActivities(5).subscribe({
+      next: (activities) => (this.recentActivities = activities),
+      error: (err) => console.error('Error fetching activities:', err),
     });
   }
 

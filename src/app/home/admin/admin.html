@@ -21,49 +21,53 @@
     <div class="card stat-card">
       <h3>Recent Activity</h3>
       <ul>
-        <li>✅ Task creation</li>
-        <li>✏️ Task update</li>
-        <li>🗑️ Task deletion</li>
+        <li *ngFor="let activity of recentActivities">
+          <span *ngIf="activity.action === 'CREATE_TASK'">✅</span>
+          <span *ngIf="activity.action === 'UPDATE_TASK'">✏️</span>
+          <span *ngIf="activity.action === 'DELETE_TASK'">🗑️</span>
+          <span *ngIf="activity.action === 'MOVE_TASK'">📌</span>
+          {{ activity.details }} <small>({{ activity.timestamp | date : 'short' }})</small>
+        </li>
       </ul>
     </div>
   </div>
 
   <!-- Users Table -->
- <div class="user-management card">
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th style="min-width: 150px; padding-left:120px;">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of paginatedUsers; let i = index">
-          <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-          <td style="font-weight: bold">
-            <a [routerLink]="['/detailsUser', user.id]" style="text-decoration: none">
-              {{ user.name }}
-            </a>
-          </td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
-          <td>
-            <button class="custom-btn btn edit mx-2" (click)="editUser(user.id)">
-              <i class="uil uil-edit"></i> Edit
-            </button>
-            <button class="custom-btn btn delete" (click)="deleteUser(user.id)">
-              <i class="uil uil-trash-alt"></i> Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="user-management card">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th style="min-width: 150px; padding-left: 120px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of paginatedUsers; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td style="font-weight: bold">
+              <a [routerLink]="['/detailsUser', user.id]" style="text-decoration: none">
+                {{ user.name }}
+              </a>
+            </td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <button class="custom-btn btn edit mx-2" (click)="editUser(user.id)">
+                <i class="uil uil-edit"></i> Edit
+              </button>
+              <button class="custom-btn btn delete" (click)="deleteUser(user.id)">
+                <i class="uil uil-trash-alt"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
   <!-- Edit User Modal -->
   <div class="modal" *ngIf="selectedUser">
