@@ -1,0 +1,42 @@
+<div class="edit-container" *ngIf="task">
+  <h2>Edit Task</h2>
+
+  <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+    <div class="form-group">
+      <label>Project</label>
+      <input type="text" [(ngModel)]="task.project" name="project" required />
+    </div>
+
+    <div class="form-group">
+      <label>Details</label>
+      <textarea [(ngModel)]="task.details" name="details" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Priority</label>
+      <select [(ngModel)]="task.priority" name="priority">
+        <option>High</option>
+        <option>Medium</option>
+        <option>Low</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Due Date</label>
+      <input type="date" [(ngModel)]="task.dueDate" name="dueDate" />
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <select [(ngModel)]="task.status" name="status">
+        <option value="todo">To Do</option>
+        <option value="progress">In Progress</option>
+        <option value="completed">Completed</option>
+        <option value="delete">Deleted</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn-save"><i class="uil uil-save"></i> Save Changes</button>
+    <a type="button" class="btn-cancel" href="/user" style="text-decoration: none;"> <i class="uil uil-times"></i>Cancel </a>
+  </form>
+</div>

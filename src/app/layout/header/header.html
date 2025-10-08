@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(198, 155, 91)">
+  <div class="container-fluid">
+    <img
+      src="assets/images/4903445.jpg"
+      alt="Banner"
+      style="width: 50px; height: 50px; border-radius: 100%"
+    />
+    <h4>
+      <span>Task Manager</span>
+    </h4>
+    <!-- Toggler for mobile -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarContent"
+      aria-controls="navbarContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        @if (auth.isLoggedIn(); as loggedIn) {
+        <li class="nav-item">
+          <a class="nav-link" href="/user">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" (click)="about()">About</button>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="userMenu"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ username || 'Profile' }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+            <li>
+              <a class="dropdown-item" (click)="logout()" style="cursor: pointer">Logout</a>
+            </li>
+          </ul>
+        </li>
+        } @else {
+        <!-- Show if NOT logged in -->
+        <li class="nav-item">
+          <a class="nav-link" href="/auth">Login/SignUp</a>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- https://codepen.io/SunilSalaria/pen/PodLLbe -->
+<!-- https://codepen.io/regme/pen/xxVQop -->

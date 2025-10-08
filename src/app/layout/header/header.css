@@ -1,0 +1,41 @@
+@import url(https://fonts.googleapis.com/css?family=Cherry+Swash);
+
+.navbar-brand {
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  font-family: 'Cherry Swash';
+  font-weight: 500;
+  color: antiquewhite;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(39, 32, 32, 0.5);
+}
+
+.nav-link:hover {
+  color: #ffffff !important;
+}
+
+h4 {
+  color:#ffffff;
+  margin-left: 10px;
+  text-align: center;
+  font-size: 23px;
+  overflow: hidden;
+  line-height: 1;
+  font-weight: 500;
+}
+
+h4 span {
+  display: block;
+  animation: reveal 1.8s cubic-bezier(0.77, 0, 0.175, 1) 1s;
+  font-family: 'Cherry Swash';
+}
+
+@keyframes reveal {
+  0% {
+    transform: translate(0, 100%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}

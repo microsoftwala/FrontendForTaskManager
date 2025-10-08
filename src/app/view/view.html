@@ -1,0 +1,15 @@
+<!-- Task Details Modal -->
+<div *ngIf="task" class="modal-backdrop">
+  <div class="modal-content p-3">
+    <h5>Task Details</h5>
+    <p><strong>Project:</strong> {{ task.project }}</p>
+    <p><strong>Details:</strong> {{ task.details }}</p>
+    <p><strong>Priority:</strong> {{ task.priority }}</p>
+    <p><strong>Due Date:</strong> {{ task.dueDate | date:'dd MMM yyyy' }}</p>
+    <p><strong>Status:</strong> {{ task.status }}</p>
+
+    <a class="btn btn-sm btn-secondary" href="/user">
+      Back
+    </a>
+  </div>
+</div>

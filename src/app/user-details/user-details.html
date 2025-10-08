@@ -1,0 +1,70 @@
+<div class="task-container">
+  <div class="d-flex justify-content-center">
+    <h2>User Task Overview</h2>
+  </div>
+  <div class="task-columns">
+    <!-- To Do Column -->
+    <div class="task-column">
+      <h3 style="color: rgb(87, 117, 172)">To Do</h3>
+      <div style="overflow-y: scroll; max-height: 65vh; scrollbar-width: none">
+        <div
+          *ngFor="let task of todo"
+          class="task-card"
+          style="background-color: rgb(172, 193, 224)"
+        >
+          <p><strong>Project:</strong> {{ task.project }}</p>
+          <p><strong>Details:</strong> {{ task.details }}</p>
+          <p><strong>Priority:</strong> {{ task.priority }}</p>
+          <p><strong>Due Date:</strong> {{ task.dueDate | date : 'mediumDate' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- In Progress Column -->
+    <div class="task-column">
+      <h3 style="color: rgb(207, 165, 110)">In Progress</h3>
+      <div style="overflow-y: scroll; max-height: 65vh; scrollbar-width: none">
+        <div
+          *ngFor="let task of progress"
+          class="task-card"
+          style="background-color: rgb(247, 224, 194)"
+        >
+          <p><strong>Project:</strong> {{ task.project }}</p>
+          <p><strong>Details:</strong> {{ task.details }}</p>
+          <p><strong>Priority:</strong> {{ task.priority }}</p>
+          <p><strong>Due Date:</strong> {{ task.dueDate | date : 'mediumDate' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completed Column -->
+    <div class="task-column">
+      <h3 style="color: rgb(80, 152, 86)">Completed</h3>
+      <div style="overflow-y: scroll; max-height: 65vh; scrollbar-width: none">
+        <div
+          *ngFor="let task of completed"
+          class="task-card"
+          style="background-color: rgb(163, 241, 169)"
+        >
+          <p><strong>Project:</strong> {{ task.project }}</p>
+          <p><strong>Details:</strong> {{ task.details }}</p>
+          <p><strong>Priority:</strong> {{ task.priority }}</p>
+          <p><strong>Due Date:</strong> {{ task.dueDate | date : 'mediumDate' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deleted Column -->
+    <div class="task-column">
+      <h3 style="color: rgb(163, 64, 64)">Deleted</h3>
+      <div style="overflow-y: scroll; max-height: 65vh; scrollbar-width: none">
+        <div *ngFor="let task of deleted" class="task-card deleted">
+          <p><strong>Project:</strong> {{ task.project }}</p>
+          <p><strong>Details:</strong> {{ task.details }}</p>
+          <p><strong>Priority:</strong> {{ task.priority }}</p>
+          <p><strong>Due Date:</strong> {{ task.dueDate | date : 'mediumDate' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

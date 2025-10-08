@@ -1,0 +1,282 @@
+/* Container */
+@import url(https://fonts.googleapis.com/css?family=Cherry+Swash);
+@import url(https://fonts.googleapis.com/css?family=Libre+Baskerville);
+
+.admin-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  min-height: 100vh;
+  animation: fadeIn 0.6s ease;
+  font-family: 'Libre Baskerville';
+  animation: pageBlast 0.6s ease-in-out;
+  background: linear-gradient(-45deg, #f2e3e3, #fff6f4, #f5e4ff, #ffffff);
+}
+
+/* Stats Section */
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 220px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Cherry Swash';
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card h3 {
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  color: #007bff;
+}
+
+.stat-card .number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* User Management */
+.user-management {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  animation: slideUp 0.6s ease;
+}
+
+.user-management h3 {
+  margin-bottom: 1rem;
+  color: #007bff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f1f5ff;
+}
+
+th,
+td {
+  padding: 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+  background: #f9fbff;
+  transition: background 0.3s ease;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.3rem 0.6rem;
+  font-family: 'Cherry Swash';
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.btn.edit {
+  background: #007bff;
+  font-family: 'Cherry Swash';
+  color: #fff;
+}
+
+.btn.edit:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+  color: black;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.btn.delete {
+  background: #ff4d4d;
+  color: #fff;
+}
+
+.btn.delete:hover {
+  background: #cc0000;
+  transform: scale(1.05);
+  color: black;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.pagination a {
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  background: #f1f5ff;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: 'Cherry Swash';
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.pagination a:hover {
+  background: #007bff;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.pagination a.active {
+  background: #007bff;
+  color: #fff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #ffffff;
+  padding: 2rem;
+  width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease;
+}
+
+/* Form Labels and Inputs */
+.modal-content label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease;
+}
+
+.modal-content input:focus,
+.modal-content select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.btn.save {
+  background: #28a745;
+  color: #fff;
+}
+
+.btn.save:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+.btn.cancel {
+  background: #dc3545;
+  color: #fff;
+}
+
+.btn.cancel:hover {
+  background: #c82333;
+  transform: scale(1.05);
+}
+
+@keyframes pageBlast {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+body.animate-blast {
+  animation: pageBlast 0.6s ease-in-out;
+}

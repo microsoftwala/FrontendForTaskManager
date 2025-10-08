@@ -1,0 +1,111 @@
+<div class="admin-container">
+  <!-- Dashboard Stats -->
+  <script>
+    document.addEventListener('click', () => {
+      document.body.classList.add('animate-blast');
+      setTimeout(() => {
+        document.body.classList.remove('animate-blast');
+      }, 1000); // Match animation duration
+    });
+  </script>
+
+  <div class="stats">
+    <div class="card stat-card">
+      <h3>Total Users</h3>
+      <p class="number">{{ noOfUsers }}</p>
+    </div>
+    <div class="card stat-card">
+      <h3>Total Tasks</h3>
+      <p class="number">{{ totalNoOfTasks }}</p>
+    </div>
+    <div class="card stat-card">
+      <h3>Recent Activity</h3>
+      <ul>
+        <li>✅ Task creation</li>
+        <li>✏️ Task update</li>
+        <li>🗑️ Task deletion</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="user-management card">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th style="padding-left: 150px">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through users -->
+        <tr *ngFor="let user of paginatedUsers; let i = index">
+          <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+          <td style="font-weight: bold">
+            <a [routerLink]="['/detailsUser', user.id]" style="text-decoration: none">
+              {{ user.name }}
+            </a>
+          </td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <button class="custom-btn btn edit mx-4" (click)="editUser(user.id)">
+              <i class="uil uil-edit"></i> Edit
+            </button>
+            <button class="custom-btn btn delete" (click)="deleteUser(user.id)">
+              <i class="uil uil-trash-alt"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Edit User Modal -->
+  <div class="modal" *ngIf="selectedUser">
+    <div class="modal-content card">
+      <h3>Edit User</h3>
+      <form (ngSubmit)="updateUser()">
+        <label>Name:</label>
+        <input type="text" [(ngModel)]="selectedUser.name" name="name" required />
+
+        <label>Email:</label>
+        <input type="email" [(ngModel)]="selectedUser.email" name="email" required />
+
+        <label>Role:</label>
+        <select [(ngModel)]="selectedUser.role" name="role">
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+        </select>
+
+        <div class="modal-actions">
+          <button type="submit" class="custom-btn btn save">
+            <i class="uil uil-save"></i> Save
+          </button>
+          <button type="button" class="custom-btn btn cancel" (click)="selectedUser = null">
+            <i class="uil uil-times"></i>Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      (click)="goToPage(i + 1)"
+      [class.active]="currentPage === i + 1"
+    >
+      {{ i + 1 }}
+    </button>
+
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+      Next
+    </button>
+  </div>
+</div>

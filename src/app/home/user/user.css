@@ -1,0 +1,434 @@
+/* Base look for the To Do column */
+@import url(https://fonts.googleapis.com/css?family=Cherry+Swash);
+@import url(https://fonts.googleapis.com/css?family=Libre+Baskerville);
+body {
+  font-family: Helvetica;
+  font-weight: bold;
+}
+.container1 {
+  padding: 10px 20px 0;
+  max-width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.body {
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #f2e3e3, #fff6f4, #f5e4ff, #ffffff);
+  animation: gradientShift 5s ease infinite;
+  font-family: 'Libre Baskerville', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+  animation: bounceIn 1.2s ease;
+}
+
+/* Gradient animation keyframes */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.todo {
+  background: linear-gradient(-45deg, #f2e3e3, #fff6f4, #f5e4ff, #ffffff);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Libre Baskerville';
+  max-height: 420px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.progress1 {
+  background: linear-gradient(45deg, #f2e3e3, #fff6f4, #f5e4ff, #ffffff);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Libre Baskerville';
+  max-height: 420px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.complete {
+  margin-top: 20px;
+  background: linear-gradient(-45deg, #f2e3e3, #fff6f4, #f5e4ff, #ffffff);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Libre Baskerville';
+  max-height: 420px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.delete {
+  margin-top: 20px;
+  background: linear-gradient(45deg, #f2e3e3, #fff6f4, #f5e4ff, #ffffff);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Libre Baskerville';
+  max-height: 420px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.delete::-webkit-scrollbar,
+.progress1::-webkit-scrollbar,
+.complete::-webkit-scrollbar,
+.todo::-webkit-scrollbar {
+  display: none;
+}
+
+/* Subtitle pattern overlay for aesthetics */
+.todo::before,
+.delete::before,
+.progress1::before,
+.complete::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(13, 110, 253, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+/* Glow when dragging over */
+.todo.drag-over {
+  border: 2px dashed #0d6efd;
+  background: linear-gradient(135deg, #e0ebff, #d6e0ff);
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.4);
+}
+
+.progress1.drag-over {
+  border: 2px dashed #fdcd0d;
+  background: linear-gradient(135deg, #f2e1b1, #f9e27e);
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.4);
+}
+
+.complete.drag-over {
+  border: 2px dashed #0dfd21;
+  background: linear-gradient(135deg, #c7fae0, #8bf77b);
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.4);
+}
+
+.delete.drag-over {
+  border: 2px dashed #fd0d0d;
+  background: linear-gradient(135deg, #f7c9b7, #fe8484);
+  box-shadow: 0 0 15px rgba(13, 110, 253, 0.4);
+}
+
+/* Drop animation */
+@keyframes todoDrop {
+  0% {
+    transform: scale(0.95) translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.todo .card.dropped {
+  animation: todoDrop 0.4s ease;
+}
+
+.progress1 .card.dropped {
+  animation: todoDrop 0.4s ease;
+}
+
+.complete .card.dropped {
+  animation: todoDrop 0.4s ease;
+}
+
+.todo form input {
+  font-size: 0.85rem;
+}
+
+.todo form button {
+  white-space: nowrap;
+}
+
+.delete .card.dropped {
+  animation: todoDrop 0.4s ease;
+}
+
+.task-col {
+  min-height: 45vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid #f2f2f2;
+}
+
+/* Sticky header */
+.task-col h5 {
+  position: sticky;
+  top: 0;
+  background: #e3effd;
+  padding: 0.5rem;
+  z-index: 10;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Between 700px and 1500px → 2 per row */
+@media (min-width: 700px) and (max-width: 1499px) {
+  .task-col {
+    flex: 0 0 40%;
+    max-width: 40%;
+  }
+}
+
+@media (min-width: 100px) and (max-width: 700px) {
+  .task-col {
+    margin-bottom: 25px;
+    flex: 0 0 90%;
+    max-width: 90%;
+  }
+}
+
+/* Above 1500px → 4 per row */
+@media (min-width: 1500px) {
+  .task-col {
+    flex: 0 0 21%;
+    max-width: 21%;
+  }
+
+  .complete {
+    margin-top: 0px;
+  }
+
+  .delete {
+    margin-top: 0px;
+  }
+}
+.custom-btn {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 220px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.custom-btn1 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.custom-btn1:hover {
+  background-color: #1e6de3;
+}
+
+.card .btn {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.btn1 i {
+  color: #3498db;
+}
+.btn2 i {
+  color: #f39c12;
+}
+.btn3 i {
+  color: #e74c3c;
+}
+.btn4 i {
+  color: #2ecc71;
+}
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease;
+  z-index: 1000;
+}
+
+/* Popup */
+.modal-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  animation: popupIn 0.3s ease forwards;
+  z-index: 1001;
+}
+
+/* Form inside popup */
+.popup-form {
+  animation: slideUp 0.4s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Column widths */
+.col-left {
+  flex: 0 0 18%;
+}
+
+.col-right {
+  flex: 0 0 12%;
+}
+
+.col-middle {
+  flex: 0 0 70%; /* fixed 70% */
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .header-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .col-left,
+  .col-right {
+    flex: 0 0 100%;
+  }
+
+  .col-middle {
+    flex: 0 0 100%;
+    text-align: center;
+  }
+}
+
+/* Typing animation only on heading */
+.typing {
+  display: inline-block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid #ffffff;
+  width: 0;
+  animation: typing 3s steps(20, end) forwards, blink 0.7s infinite;
+}
+
+/* Keyframes */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 20ch;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}

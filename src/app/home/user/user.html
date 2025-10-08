@@ -1,0 +1,291 @@
+<div class="body">
+  <section class="mt-3" style="min-height: 100vh">
+    <div class="d-flex align-items-center my-3 header-row">
+      <!-- Left: Button -->
+      <div class="col-left">
+        <form class="d-flex ms-3 mb-2" role="search" (ngSubmit)="onSearch()">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            [(ngModel)]="searchQuery"
+            name="search"
+          />
+          <button class="btn btn-success" type="submit">🔎</button>
+        </form>
+      </div>
+
+      <!-- Middle: Heading -->
+      <div class="col-middle text-center">
+        <h2 class="typing">Task Management System</h2>
+      </div>
+
+      <!-- Right: Empty (for balance / future use) -->
+      <div class="col-right">
+        <button class="btn btn-primary custom-btn1" (click)="showForm = true">
+          <i class="uil uil-plus"></i> Create Task
+        </button>
+      </div>
+    </div>
+
+    <div class="container-fluid my-3 my-lg-5">
+      <!-- Popup Overlay -->
+      <div class="modal-overlay" *ngIf="showForm" (click)="closeForm()"></div>
+
+      <!-- Popup Form -->
+      <div class="modal-popup" *ngIf="showForm">
+        <form (ngSubmit)="addTask(); closeForm()" class="popup-form">
+          <h4 class="mb-3"><i class="uil uil-plus"></i> Create New Task</h4>
+
+          <!-- Project Name -->
+          <div class="mb-2">
+            <label class="form-label"><i class="uil uil-folder"></i> Project Name</label>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newProjectDetails"
+              name="projectDetails"
+              required
+            />
+          </div>
+
+          <!-- Description -->
+          <div class="mb-2">
+            <label class="form-label"
+              ><i class="uil uil-document-layout-left"></i> Description</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="newTaskDetails"
+              name="taskDetails"
+              required
+            />
+          </div>
+
+          <!-- Priority & Due Date -->
+          <div class="row mb-2">
+            <div class="col-md-6">
+              <label class="form-label"
+                ><i class="uil uil-exclamation-triangle"></i> Priority</label
+              >
+              <select class="form-select" [(ngModel)]="newPriority" name="priority" required>
+                <option value="" disabled selected hidden>Choose Priority</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="uil uil-calendar-alt"></i> Due Date</label>
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="newDueDate"
+                name="dueDate"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="text-end mt-3">
+            <button type="button" class="btn btn-secondary me-2" (click)="closeForm()">
+              <i class="uil uil-times"></i>Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="uil uil-plus"></i>Add Task
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="row justify-content-center">
+        <!-- To Do -->
+        <div
+          class="task-col shadow-sm mx-2 bg-light todo px-4"
+          [ngClass]="{ 'drag-over': isDragOver === 'todo' }"
+          (drop)="onDrop($event, 'todo')"
+          (dragover)="allowDrop($event, 'todo')"
+          (dragleave)="onDragLeave($event)"
+        >
+          <h5 style="font-weight: 600; justify-content: center; display: flex" class="btn1">
+            <i class="uil uil-notes">TO DO</i>
+          </h5>
+          <!-- 🔹 Add Task Form -->
+
+          <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+            <ng-container *ngFor="let task of todo">
+              <ng-container
+                *ngTemplateOutlet="taskCard; context: { $implicit: task }"
+              ></ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- In Progress -->
+        <div
+          class="task-col shadow-sm mx-2 bg-light progress1 px-4"
+          [ngClass]="{ 'drag-over': isDragOver === 'progress' }"
+          (drop)="onDrop($event, 'progress')"
+          (dragover)="allowDrop($event, 'progress')"
+          (dragleave)="onDragLeave($event)"
+        >
+          <h5
+            style="
+              font-weight: 600;
+              background-color: #fae68f;
+              justify-content: center;
+              display: flex;
+            "
+            class="btn2"
+          >
+            <i class="uil uil-sync">IN PROGRESS</i>
+          </h5>
+          <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+            <ng-container *ngFor="let task of progress">
+              <ng-container
+                *ngTemplateOutlet="taskCard; context: { $implicit: task }"
+              ></ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- Completed -->
+        <div
+          class="task-col shadow-sm mx-2 bg-light px-4 complete"
+          [ngClass]="{ 'drag-over': isDragOver === 'completed' }"
+          (drop)="onDrop($event, 'completed')"
+          (dragover)="allowDrop($event, 'completed')"
+          (dragleave)="onDragLeave($event)"
+        >
+          <h5
+            style="
+              font-weight: 600;
+              background-color: #c8f8c0;
+              justify-content: center;
+              display: flex;
+            "
+            class="btn4"
+          >
+            <i class="uil uil-check-circle">COMPLETED</i>
+          </h5>
+          <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+            <ng-container *ngFor="let task of completed">
+              <ng-container
+                *ngTemplateOutlet="taskCard; context: { $implicit: task }"
+              ></ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+        <!-- Delete -->
+        <div
+          class="task-col shadow-sm mx-2 bg-light px-4 text-center text-danger fw-bold delete"
+          [ngClass]="{ 'drag-over': isDragOver === 'delete' }"
+          (drop)="onDrop($event, 'delete')"
+          (dragover)="allowDrop($event, 'delete')"
+          (dragleave)="onDragLeave($event)"
+        >
+          <h5
+            style="
+              justify-content: center;
+              display: flex;
+              font-weight: 600;
+              background-color: #ffc9c9;
+            "
+            class="btn3"
+          >
+            <i class="uil uil-trash-alt">DELETE</i>
+          </h5>
+          <div class="d-flex flex-column align-items-center justify-content-center mt-3">
+            <ng-container *ngFor="let task of deleted">
+              <div
+                [id]="task.id"
+                class="card rounded-0 w-100 mb-3 border-0 border-start border-3 shadow-sm border-danger"
+                draggable="false"
+              >
+                <!-- not draggable -->
+                <div class="card-body px-3 py-3">
+                  <div class="card-text mb-2">{{ task.details }}</div>
+                  <div class="d-inline p-1 fw-semibold small text-white bg-danger">
+                    {{ task.project }}
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <p *ngIf="deleted.length === 0" class="small text-muted">Drop here to remove</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shared card template -->
+    <ng-template #taskCard let-task>
+      <div
+        [id]="task.id"
+        class="card rounded-0 w-100 mb-3 border-0 border-start border-3 shadow-sm"
+        [ngClass]="{
+          'border-primary': task.status === 'todo',
+          'border-warning': task.status === 'progress',
+          'border-success': task.status === 'completed'
+        }"
+        draggable="true"
+        (dragstart)="dragStart($event, task)"
+      >
+        <div class="card-body px-3 py-3 stat-card">
+          <!-- Task details -->
+          <div class="card-text mb-2 fw-semibold">{{ task.details }}</div>
+
+          <!-- Project badge -->
+          <div
+            class="d-inline p-1 fw-semibold small text-white project-name me-2"
+            style="border-radius: 5px; margin: 2px"
+            [ngClass]="{
+              'bg-primary': task.status === 'todo',
+              'bg-warning': task.status === 'progress',
+              'bg-success': task.status === 'completed'
+            }"
+          >
+            {{ task.project }}
+          </div>
+
+          <!-- Priority badge -->
+          <span
+            class="badge mb-1 me-2"
+            style="border-radius: 5px; margin: 2px"
+            [ngClass]="{
+              'bg-danger': task.priority === 'High',
+              'bg-warning text-dark': task.priority === 'Medium',
+              'bg-success': task.priority === 'Low'
+            }"
+          >
+            {{ task.priority }} Priority
+          </span>
+
+          <!-- Due date badge -->
+          <span class="badge bg-secondary"> Due: {{ task.dueDate | date : 'dd MMM yyyy' }} </span>
+
+          <!-- Actions section (if not delete) -->
+          <div class="mt-3 d-flex gap-2" *ngIf="task.status !== 'delete'">
+            <button
+              class="custom-btn btn btn-sm btn-outline-primary"
+              (click)="viewTaskById(task.id)"
+            >
+              <i class="uil uil-eye"></i>
+              View
+            </button>
+            <button
+              class="custom-btn btn btn-sm btn-outline-secondary"
+              (click)="editTaskById(task.id)"
+            >
+              <i class="uil uil-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </section>
+</div>
+
+<!-- F R U R' U' F' -->
