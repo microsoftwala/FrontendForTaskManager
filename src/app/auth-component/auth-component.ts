@@ -4,6 +4,7 @@ import { AuthService } from '../authService/auth-service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ActivityService } from '../activityService/activity-service';
 
 @Component({
   selector: 'app-auth-component',
@@ -20,7 +21,9 @@ export class AuthComponent {
     private fb: FormBuilder,
     private api: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private activityService: ActivityService,
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -50,13 +53,27 @@ export class AuthComponent {
           this.api.setToken(res.token);
           this.api.setId(res.user.id);
           this.api.setRole(res.user.role);
-          this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
-          this.loginForm.reset();
+
+          // Log activity
+          this.activityService
+            .logActivity({
+              userId: res.user.id || sessionStorage.getItem('id')!,
+              action: 'Log In User',
+              entityId: 'Null',
+              details: `User ${res.user.name} loggedIn`,
+            })
+            .subscribe({
+              next: (log) => console.log('Activity logged:', log),
+              error: (err) => console.error('Error logging activity:', err),
+            });
           if (res.user.role == 'Admin') {
             this.router.navigate(['/admin']);
           } else {
             this.router.navigate(['/user']);
           }
+
+          this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+          this.loginForm.reset();
         },
         error: (err) => {
           this.snackBar.open('Login failed. Please try again.', 'Close', { duration: 3000 });
@@ -70,6 +87,25 @@ export class AuthComponent {
     if (this.signupForm.valid) {
       this.api.signup(this.signupForm.value).subscribe({
         next: (res) => {
+          // Log activity
+          console.log("Response from server:", res);
+          this.activityService
+            .logActivityWithoutLogin({
+              userId: 'Null',
+              action: 'Sign Up',
+              entityId: 'Null',
+              details: `User ${res.user.name} SignedUp`,
+            })
+            .subscribe({
+              next: (log) => console.log('Activity logged:', log),
+              error: (err) => console.error('Error logging activity:', err),
+            });
+          if (res.user.role == 'Admin') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/user']);
+          }
+
           this.snackBar.open('User registered successfully!', 'Close', { duration: 3000 });
           this.signupForm.reset();
         },
