@@ -1,6 +1,7 @@
 .footer {
   width: 100%;
-  background: linear-gradient(-45deg, #f2e3e3, #fff6f4, #f5e4ff, #ffffff);  padding: 8px 0;
+  background: linear-gradient(-45deg, #f2e3e3, #fff6f4, #f5e4ff, #ffffff);
+  padding: 8px 0;
   font-size: 14px;
   color: #333;
   opacity: 0.8;
@@ -11,14 +12,14 @@
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .footer-left {
   margin-bottom: 2px;
-  color:#b5b5b5
+  color: #b5b5b5;
 }
 
 .footer-right a {

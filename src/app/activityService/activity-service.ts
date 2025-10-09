@@ -16,8 +16,8 @@ export interface Activity {
   providedIn: 'root',
 })
 export class ActivityService {
-  private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/users/activity';
-  // private apiUrl = 'http://localhost:3000/users/activity';
+  // private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/users/activity';
+  private apiUrl = 'http://localhost:3000/users/activity';
 
   constructor(private http: HttpClient) {}
 

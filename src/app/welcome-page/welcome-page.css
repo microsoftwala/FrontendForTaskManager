@@ -1,22 +1,26 @@
 /* Full-screen animated gradient background */
 .body {
-  min-height: 85vh;
+  min-height: 100vh;
   background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
-  animation: gradientShift 5s ease infinite; 
+  animation: gradientShift 5s ease infinite;
   font-family: 'Libre Baskerville', serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: hidden;
 }
 
 /* Gradient animation keyframes */
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
-
 
 /* Welcome container styling */
 .welcome-container {

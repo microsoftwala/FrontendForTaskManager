@@ -16,12 +16,13 @@ export interface Task {
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/tasks';
-  // private apiUrl = 'http://localhost:3000/tasks'
+  // private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/tasks';
+  private apiUrl = 'http://localhost:3000/tasks'
   constructor(private httpClient: HttpClient) {}
   
   private getAuthHeaders(): HttpHeaders {
     const token = sessionStorage.getItem('authToken') || '';
+    console.log('Token', token);
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
@@ -40,6 +41,7 @@ export class TaskService {
   }
 
   getAllTaskByUserId(id: string | null): Observable<Task[]> {
+    console.log(this.getAuthHeaders());
     return this.httpClient.get<Task[]>(`${this.apiUrl}/userId/${id}`, {
       headers: this.getAuthHeaders(),
     });

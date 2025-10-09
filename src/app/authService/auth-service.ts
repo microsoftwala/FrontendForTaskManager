@@ -6,8 +6,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'https://backendfortaskmanager-ptqp.onrender.com/auth';
-  // private baseUrl = 'http://localhost:3000/auth';
+  // private baseUrl = 'https://backendfortaskmanager-ptqp.onrender.com/auth';
+  private baseUrl = 'http://localhost:3000/auth';
 
   constructor(private httpClient: HttpClient) {}
 
