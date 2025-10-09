@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TaskService } from '../../taskService/task-service';
@@ -27,7 +27,8 @@ export class User {
     private router: Router,
     private taskService: TaskService,
     private authService: AuthService,
-    private activityService: ActivityService
+    private activityService: ActivityService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   todo: Task[] = [];
@@ -152,6 +153,7 @@ export class User {
 
         // after Adding update list
         this.loadTasks();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error creating task:', err);
