@@ -90,7 +90,7 @@ export class AuthComponent {
           // Log activity
           console.log("Response from server:", res);
           this.activityService
-            .logActivityWithoutLogin({
+            .logActivity({
               userId: 'Null',
               action: 'Sign Up',
               entityId: 'Null',
