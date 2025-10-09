@@ -30,9 +30,7 @@ export class ActivityService {
   }
 
   logActivity(activity: Activity): Observable<Activity> {
-    return this.http.post<Activity>(this.apiUrl, activity, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.post<Activity>(this.apiUrlWithoutLogin, activity);
   }
 
   logActivityWithoutLogin(activity: Activity): Observable<Activity> {
