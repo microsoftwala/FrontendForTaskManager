@@ -11,16 +11,16 @@
 
   <div class="stats">
     <div class="card stat-card">
-      <h3>Total Users</h3>
+      <h3 style="color:aliceblue">Total Users</h3>
       <p class="number">{{ noOfUsers }}</p>
     </div>
     <div class="card stat-card">
-      <h3>Total Tasks</h3>
+      <h3 style="color:aliceblue">Total Tasks</h3>
       <p class="number">{{ totalNoOfTasks }}</p>
     </div>
     <div class="card stat-card">
-      <h3>Recent Activity</h3>
-      <ul>
+      <h3 style="color:aliceblue">Recent Activity</h3>
+      <ul style="overflow-y: scroll; max-height: 150px; scrollbar-width: none; color:rgb(49, 49, 49)">
         <li *ngFor="let activity of recentActivities">
           <span *ngIf="activity.action === 'CREATE_TASK'">✅</span>
           <span *ngIf="activity.action === 'UPDATE_TASK'">✏️</span>
@@ -34,7 +34,7 @@
 
   <!-- Users Table -->
   <div class="user-management card">
-    <div class="table-responsive">
+    <div class="table-responsive" style="scrollbar-width: none;">
       <table class="table">
         <thead>
           <tr>

@@ -2,14 +2,29 @@
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AuthService } from './authService/auth-service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
   constructor(private api: AuthService, private router: Router) {}
 
+  private getRole(): string | null {
+    const token = this.api.getToken();
+    if (!token) return null;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.role || null;
+    } catch (e) {
+      console.error('Invalid token', e);
+      return null;
+    }
+  }
+
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const token = this.api.getToken();
-    const role = this.api.getRole(); 
+    const role = this.getRole();
     const url = state.url;
 
     if (!token) {

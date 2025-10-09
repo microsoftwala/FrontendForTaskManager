@@ -13,8 +13,8 @@ export interface Users {
   providedIn: 'root',
 })
 export class UserService {
-  // private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/users';
-  private apiUrl = 'http://localhost:3000/users';
+  private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/users';
+  // private apiUrl = 'http://localhost:3000/users';
   constructor(private httpClient: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
