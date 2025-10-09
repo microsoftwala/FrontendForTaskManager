@@ -116,6 +116,19 @@ export class User {
   addTask() {
     if (!this.newTaskDetails.trim()) return;
 
+    if (this.newDueDate) {
+      const selectedDate = new Date(this.newDueDate);
+      const today = new Date();
+
+      selectedDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
+      if (selectedDate < today) {
+        alert('Due date cannot be in the past. Please select today or a future date.');
+        return;
+      }
+    }
+
     const newTask: Task = {
       id: 'task-' + Date.now(),
       details: this.newTaskDetails,
@@ -189,7 +202,7 @@ export class User {
         console.log('Task updated in DB:', updated, taskId, taskDetails);
         //reload tasks to stay in sync
         this.loadTasks();
-        // ✅ Log activity
+        // Log activity
         this.activityService
           .logActivity({
             userId: this.authService.getId() || sessionStorage.getItem('id')!,

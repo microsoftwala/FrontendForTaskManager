@@ -16,8 +16,8 @@ export interface Activity {
   providedIn: 'root',
 })
 export class ActivityService {
-  private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/users/activity';
-  // private apiUrl = 'http://localhost:3000/users/activity';
+  // private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/users/activity';
+  private apiUrl = 'http://localhost:3000/users/activity';
 
   constructor(private http: HttpClient) {}
 
@@ -29,7 +29,6 @@ export class ActivityService {
   }
 
   logActivity(activity: Activity): Observable<Activity> {
-    console.log('Activity', activity);
     return this.http.post<Activity>(this.apiUrl, activity, {
       headers: this.getAuthHeaders(),
     });

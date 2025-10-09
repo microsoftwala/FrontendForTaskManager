@@ -16,7 +16,7 @@ export interface User {
 export interface Activity {
   id?: string | number;
   userId: string;
-  action:string,
+  action: string;
   entityId: string; // task id
   details: string; // description
   timestamp?: string;
@@ -50,6 +50,9 @@ export class Admin {
     this.loadUsers();
     this.countTask();
     this.loadRecentActivities();
+    setInterval(() => this.countTask(), 5000);
+    setInterval(()=>this.loadRecentActivities(),5000);
+    // setInterval(()=>this.(),5000);
   }
 
   loadUsers() {

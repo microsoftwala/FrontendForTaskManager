@@ -16,8 +16,8 @@ export interface Task {
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/tasks';
-  // private apiUrl = 'http://localhost:3000/tasks'
+  // private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/tasks';
+  private apiUrl = 'http://localhost:3000/tasks'
   constructor(private httpClient: HttpClient) {}
   
   private getAuthHeaders(): HttpHeaders {
