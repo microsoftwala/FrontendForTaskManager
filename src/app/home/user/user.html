@@ -209,10 +209,29 @@
                 draggable="false"
               >
                 <!-- not draggable -->
-                <div class="card-body px-3 py-3">
-                  <div class="card-text mb-2">{{ task.details }}</div>
-                  <div class="d-inline p-1 fw-semibold small text-white bg-danger">
-                    {{ task.project }}
+                <div class="card-body stat-card">
+                  <div class="row align-items-center">
+                    <!-- Task details -->
+                    <div class="col-12 col-md-6 mb-2 mb-md-0">
+                      <div class="card-text fw-bold">{{ task.details }}</div>
+                    </div>
+
+                    <!-- Project badge -->
+                    <div class="col-6 col-md-3 text-md-center mb-2 mb-md-0">
+                      <span class="badge bg-danger text-wrap px-3 py-2">
+                        {{ task.project }}
+                      </span>
+                    </div>
+
+                    <!-- Delete button -->
+                    <div class="col-6 col-md-3 text-md-end">
+                      <button
+                        class="btn btn-sm btn-outline-danger"
+                        (click)="deleteTaskById(task.id)"
+                      >
+                        <i class="uil uil-trash-alt"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

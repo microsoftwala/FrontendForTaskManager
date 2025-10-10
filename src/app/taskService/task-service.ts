@@ -17,7 +17,7 @@ export interface Task {
 })
 export class TaskService {
   private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/tasks';
-  // private apiUrl = 'http://localhost:3000/tasks'
+  // private apiUrl = 'http://localhost:3000/tasks';
   constructor(private httpClient: HttpClient) {}
   
   private getAuthHeaders(): HttpHeaders {
@@ -29,6 +29,7 @@ export class TaskService {
   }
 
   getTaskById(id: string): Observable<Task> {
+    console.log('Getting task by ID:', id);
     return this.httpClient.get<Task>(`${this.apiUrl}/${id}`, {
       headers: this.getAuthHeaders(),
     });
@@ -41,7 +42,6 @@ export class TaskService {
   }
 
   getAllTaskByUserId(id: string | null): Observable<Task[]> {
-    console.log(this.getAuthHeaders());
     return this.httpClient.get<Task[]>(`${this.apiUrl}/userId/${id}`, {
       headers: this.getAuthHeaders(),
     });
@@ -55,6 +55,12 @@ export class TaskService {
 
   editTask(id: string, task: Task): Observable<Task> {
     return this.httpClient.put<Task>(`${this.apiUrl}/${id}`, task, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  deleteTask(id: string): Observable<any> {
+    return this.httpClient.delete<any>(`${this.apiUrl}/${id}`, {
       headers: this.getAuthHeaders(),
     });
   }

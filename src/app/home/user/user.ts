@@ -210,7 +210,7 @@ export class User {
             userId: this.authService.getId() || sessionStorage.getItem('id')!,
             action: 'MOVE_TASK',
             entityId: taskId,
-            details: `Task "${taskDetails}" moved to ${target}`,
+            details: `User "${this.authService.getUserName()}" performed Task "${taskDetails}" moved to ${target}`,
           })
           .subscribe({
             next: (log) => console.log('Activity logged:', log),
@@ -258,5 +258,35 @@ export class User {
 
   closeAllTasksPopup() {
     this.showAllTasksPopup = false;
+  }
+
+  deleteTaskById(id: string) {
+    if (!confirm('Are you sure you want to delete this task?')) return;
+    this.taskService.getTaskById(id).subscribe({
+      next: (task) => {
+        console.log('Deleting task:', task.details);
+        // Now perform delete after showing details
+        this.taskService.deleteTask(id).subscribe({
+          next: () => {
+            console.log('Task deleted successfully');
+            // Log activity
+            this.activityService
+              .logActivity({
+                userId: this.authService.getId() || sessionStorage.getItem('id')!,
+                action: 'DELETE_TASK',
+                entityId: id,
+                details: `User "${this.authService.getUserName()}" deleted Task "${task.details}"`,
+              })
+              .subscribe({
+                next: (log) => console.log('Activity logged:', log),
+                error: (err) => console.error('Error logging activity:', err),
+              });
+            this.loadTasks(); // refresh list
+          },
+          error: (err) => console.error('Error deleting task:', err),
+        });
+      },
+      error: (err) => console.error('Error fetching task:', err),
+    });
   }
 }

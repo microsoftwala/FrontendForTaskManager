@@ -16,10 +16,8 @@ export interface Activity {
   providedIn: 'root',
 })
 export class ActivityService {
-  private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/users/activity';
-  private apiUrlWithoutLogin = 'https://backendfortaskmanager-ptqp.onrender.com/activity';
-  // private apiUrl = 'http://localhost:3000/users/activity';
-  // private apiUrlWithoutLogin = 'http://localhost:3000/activity'
+  private apiUrl = 'https://backendfortaskmanager-ptqp.onrender.com/activity';
+  // private apiUrl = 'http://localhost:3000/activity';
 
   constructor(private http: HttpClient) {}
 
@@ -31,15 +29,11 @@ export class ActivityService {
   }
 
   logActivity(activity: Activity): Observable<Activity> {
-    return this.http.post<Activity>(this.apiUrlWithoutLogin, activity);
+    return this.http.post<Activity>(this.apiUrl, activity);
   }
 
- 
-
   getRecentActivities(limit: number = 5): Observable<Activity[]> {
-    return this.http.get<Activity[]>(`${this.apiUrl}?_sort=timestamp&_order=desc&_limit=${limit}`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<Activity[]>(`${this.apiUrl}?_sort=timestamp&_order=desc&_limit=${limit}`);
   }
 
   // getActivities(): Observable<Activity[]> {
